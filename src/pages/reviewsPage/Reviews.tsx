@@ -17,12 +17,13 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Review } from '../../types/Review';
+import { Rating } from '../../components/rating/Rating';
 
 export function Reviews() {
   const [searchText, setSearchText] = useState('');
   const [reviews, setReviews] = useState<Review[]>([
     {movieName: "Life of Pi", reviewText: "Reviewed", rating: 4.5}, 
-    {movieName: "Stardust", reviewText: "Reviewed", rating: 5}]); // Replace with actual review data
+    {movieName: "Stardust", reviewText: "Reviewed", rating: 5}]); 
   const [selectedReview, setSelectedReview] = useState<Review>();
   const [filteredReviews, setFilteredReviews] = useState<Review[]>(reviews);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -66,7 +67,7 @@ export function Reviews() {
   };
 
   return (
-    <Container  style={{marginTop: "2%"}}>
+    <Container style={{marginTop: "2%"}}>
       <Typography variant="h4" align="center" gutterBottom>
         Reviews Page
       </Typography>
@@ -91,6 +92,9 @@ export function Reviews() {
                 <DeleteIcon />
               </IconButton>
             </ListItemSecondaryAction>
+            <Rating
+              rating={review.rating} 
+            />
           </ListItem>
         ))}
       </List>

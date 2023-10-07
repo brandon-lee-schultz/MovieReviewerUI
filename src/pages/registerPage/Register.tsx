@@ -27,7 +27,7 @@ export function Register() {
     };
   
     return (
-      <Container maxWidth="xs">
+      <Container maxWidth="xs" style={{marginTop: "2%"}}>
         <div>
           <Typography variant="h4" align="center" gutterBottom>
             Register
