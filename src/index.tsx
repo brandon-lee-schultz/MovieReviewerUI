@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Movies } from './pages/moviesPage/Movies';
-import { Error as NotFoundError } from './pages/errorPage/Error';
+import { NotFound } from './pages/errorPage/Error';
+import { NavbarWrapper } from './components/navbar/wrappers/NavbarWrapper';
+import { Reviews } from './pages/reviewsPage/Reviews';
+import { Login } from './pages/loginPage/Login';
+import { AuthGuard } from './components/authGuard/AuthGuard';
+import { Register } from './pages/registerPage/Register';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,11 +18,12 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/" Component={App}/>
-        <Route path="/login" />
-        <Route path="/movies" Component={Movies}/>
-        <Route path="/reviews" />
-        <Route path="*" Component={NotFoundError} />
+        <Route path="/" element={<AuthGuard children={<NavbarWrapper children={<Movies />}/>} />} />
+        <Route path="/movies" element={<AuthGuard children={<NavbarWrapper children={<Movies />}/>} />} />
+        <Route path="/reviews" element={<AuthGuard children={<NavbarWrapper children={<Reviews />}/>} />} />
+        <Route path="/login" Component={Login}/>
+        <Route path="/register" Component={Register}/>
+        <Route path="*" Component={NotFound} />
       </Routes>
     </Router>
   </React.StrictMode>

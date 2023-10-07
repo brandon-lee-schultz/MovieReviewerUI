@@ -1,0 +1,82 @@
+/* Custom Color Palette */
+:root {
+    --primary-color: #CDC392; /* Primary color */
+    --secondary-color: #E8E5DA; /* Secondary color */
+    --background-color: #9EB7E5; /* Background color */
+    --accent-color-1: #648DE5; /* Accent color 1 */
+    --accent-color-2: #304C89; /* Accent color 2 */
+  }
+  
+  /* Movie Page Container */
+  .movie-page {
+    padding: 20px;
+    background-color: var(--background-color);
+  }
+  
+  /* Movie Card */
+  .movie-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Movie Card Image */
+  .movie-card .MuiCardMedia-root {
+    object-fit: cover;
+  }
+  
+  /* Movie Title */
+  .movie-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+  }
+  
+  /* Movie Year */
+  .movie-year {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+  }
+  
+  /* Add Review Button */
+  .add-review-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    margin-top: auto;
+    transition: background-color 0.2s;
+  }
+  
+  .add-review-button:hover {
+    background-color: var(--accent-color-1); /* Use accent color 1 on hover */
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .pagination .active {
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    padding: 5px 10px;
+  }
+  
