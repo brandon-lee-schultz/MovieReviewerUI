@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@mui/material';
 import ReactPaginate from 'react-paginate';
-import './Movies.css';
+import './movies.css';
 import { Movie } from '../../components/movie/Movie';
 
 

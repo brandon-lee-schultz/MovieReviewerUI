@@ -10,6 +10,7 @@ import { Login } from './pages/loginPage/Login';
 import { AuthGuard } from './components/authGuard/AuthGuard';
 import { Register } from './pages/registerPage/Register';
 import { NavigationRoutes } from 'types/NavigationRoutes';
+import { Logout } from 'pages/logout/Logout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,13 +18,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router>
-        <AuthGuard protectedRoutes={[NavigationRoutes.Movies, NavigationRoutes.Reviews, NavigationRoutes.Logout]}>
+        <AuthGuard protectedRoutes={[NavigationRoutes.Movies, NavigationRoutes.Reviews]}>
            <Routes>
             <Route path="/" element={<NavbarWrapper children={<Login />}/>} />
             <Route path="/movies" element={<NavbarWrapper children={<Movies />}/>} />
             <Route path="/reviews" element={<NavbarWrapper children={<Reviews />} />} />
             <Route path="/login" Component={Login}/>
             <Route path="/register" Component={Register}/>
+            <Route path="/logout" Component={Logout} />
            </Routes>
         </AuthGuard>
     </Router>

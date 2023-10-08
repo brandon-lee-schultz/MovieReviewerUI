@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Container,
   Paper,
@@ -9,13 +9,17 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { login } from 'hooks/useAuthentication';
+import { InvalidUsernameOrPassword } from 'constants/ErrorMessages';
+import { NavigationRoutes } from 'types/NavigationRoutes';
 
-export const Login: React.FC = () => {
+export function Login() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = () => {
     // Simple validation
@@ -32,9 +36,19 @@ export const Login: React.FC = () => {
     }
 
     if (username && password) {
-      // Add your login logic here
-      console.log('Logging in...');
-      navigate("/");
+  
+      const { authenticated } = login(username, password)
+
+      if (!authenticated)
+      {
+        setUsernameError(InvalidUsernameOrPassword);
+        setPasswordError(InvalidUsernameOrPassword);
+      }
+      else
+      {
+        navigate(NavigationRoutes.Movies);
+      }
+     
     }
   };
 

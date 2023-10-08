@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { NavigationRoutes } from 'types/NavigationRoutes';
 
@@ -10,7 +10,9 @@ interface AuthGuardProps {
 export function AuthGuard(props: AuthGuardProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
+  const isAuthenticatedFromSession = sessionStorage.getItem("isAuthenticated");
+  const isAuthenticated = JSON.parse(isAuthenticatedFromSession || 'false');
 
   useEffect(() => {
     if (!isAuthenticated) {

@@ -27,7 +27,7 @@ export function Reviews() {
   return (
     <Container style={{marginTop: "2%"}}>
       <Typography variant="h4" align="center" gutterBottom>
-        Reviews Page
+        Reviews
       </Typography>
       <TextField
         label="Search Movie by Name"

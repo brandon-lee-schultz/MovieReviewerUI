@@ -1,0 +1,40 @@
+/* CSS for LoggedOutPage component */
+.logged-out-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Background color */
+  }
+  
+  .logged-out-content {
+    text-align: center;
+    background-color: #fff; /* Content background color */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    color: #333; /* Header text color */
+  }
+  
+  p {
+    margin-top: 10px;
+    color: #666; /* Paragraph text color */
+  }
+  
+  .login-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3; /* Button background color on hover */
+  }
+  
