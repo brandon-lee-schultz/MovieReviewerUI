@@ -19,7 +19,7 @@ export function ReviewCard(props: ReviewCardProps) {
       <ListItem key={props.index}>
             <ListItemText primary={review.movieName} secondary={review.reviewText} />
             <ListItemSecondaryAction>
-              <EditReviewModal />
+              <EditReviewModal review={review}/>
               <IconButton onClick={() => handleDelete(review)}>
                 <DeleteIcon />
               </IconButton>
