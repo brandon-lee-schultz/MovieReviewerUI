@@ -21,7 +21,6 @@ export function useEditReviewModal(): UseEditReviewModal {
         setEditDialogOpen(true);
     };
 
-
     return {
         editDialogOpen,
         handleEditDialogClose,

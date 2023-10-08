@@ -1,13 +1,7 @@
-import { useState } from 'react';
 import {
   Container,
   TextField,
   List,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
   Typography,
 } from '@mui/material';
 
@@ -16,10 +10,7 @@ import { ReviewCard } from '../../components/reviewCard/ReviewCard';
 
 export function Reviews() {
   const {
-    handleReviewDelete,
     handleSearch,
-    handleDeleteDialogClose,
-    deleteDialogOpen,
     filteredReviews,
     searchText,
     setSearchText} = useReviews();

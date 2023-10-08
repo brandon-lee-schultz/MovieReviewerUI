@@ -1,4 +1,4 @@
-export interface Review 
+export interface Review
 {
     movieName: string,
     reviewText: string,

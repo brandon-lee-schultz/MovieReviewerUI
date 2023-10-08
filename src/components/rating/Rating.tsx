@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
-import './Rating.css';
+import './rating.css';
+import { MaximumRating } from 'constants/MaximumValues';
 
 interface StarRatingProps {
   rating: number;
 }
 
 export function Rating (props: StarRatingProps){
-  const [hoverRating, setHoverRating] = useState<number | null>(null);
-
   return (
     <div className='stars'>
-      {[1, 2, 3, 4, 5].map((star) => (
+      
+      {MaximumRating.map((star) => (
         <span
           key={star}
           style={{
-            cursor: 'pointer',
-            color: star <= (hoverRating || props.rating) ? '#ff9800' : '#ccc',
-          }}
-        >
+            color: star <= (props.rating) ? '#ff9800' : '#ccc',
+          }}>
           ★
         </span>
       ))}

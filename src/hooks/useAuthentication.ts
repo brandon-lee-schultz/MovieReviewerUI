@@ -3,7 +3,6 @@ interface UseAuthentication {
 }
 
 export function login(username: string, password: string): UseAuthentication {
-    
     if (username === "admin" && password === "123")
         {
             sessionStorage.setItem("isAuthenticated", "true");

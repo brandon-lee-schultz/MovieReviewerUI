@@ -15,6 +15,9 @@ import { Logout } from 'pages/logout/Logout';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+document.title = 'Movie Reviewer';
+
 root.render(
   <React.StrictMode>
     <Router>
