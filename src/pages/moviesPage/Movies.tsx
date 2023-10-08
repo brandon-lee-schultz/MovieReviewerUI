@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Container,
   Grid,
   Typography,
-  Button,
-  Card,
-  CardMedia,
-  CardContent,
 } from '@mui/material';
 import ReactPaginate from 'react-paginate';
 import './Movies.css';
 import { Movie } from '../../components/movie/Movie';
 
 
-const moviesPerPage = 6; // Number of movies to display per page
+const moviesPerPage = 6;
 
 const movies = [
   {
@@ -75,12 +71,12 @@ export function Movies() {
       </Typography>
       <Grid container spacing={2}>
         {paginatedMovies.map((movie, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-           <Movie 
+           <Movie
+           key={index}
            title={movie.title}
            image={movie.image}
-           year={movie.year} />
-          </Grid>
+           year={movie.year} 
+           index={index}/>
         ))}
       </Grid>
       <ReactPaginate

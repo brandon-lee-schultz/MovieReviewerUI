@@ -1,17 +1,33 @@
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { useState } from "react";
+import AddReviewModal from "../addReview/AddReviewModal";
 
 interface MovieProps {
     title: string,
     image: string,
-    year: number
+    year: number,
+    index: number
 }
 
-const handleAddReview = (movieTitle: string) => {
-    alert(`Add review for "${movieTitle}"`);
+export function Movie(props: MovieProps) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
-export function Movie(props: MovieProps) {
-    return (<Card>
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const saveReview = (movieTitle: string, comment: string, rating: number) => {
+    // Handle saving the review data here
+    console.log(`MovieTitle: ${movieTitle}, Comment: ${comment}, Rating: ${rating}`);
+  };
+
+    return (
+      <Grid item xs={12} sm={6} md={4} key={props.index}>
+      <Card>
         <CardMedia
           component="img"
           alt={props.title}
@@ -28,10 +44,12 @@ export function Movie(props: MovieProps) {
             variant="contained"
             color="primary"
             fullWidth
-            onClick={() => handleAddReview(props.title)}
+            onClick={openModal}
           >
             Add Review
           </Button>
+            <AddReviewModal movieTitle={props.title} open={isModalOpen} onClose={closeModal} onSave={saveReview} />
         </CardContent>
-      </Card>)
+      </Card>
+      </Grid>)
 }
