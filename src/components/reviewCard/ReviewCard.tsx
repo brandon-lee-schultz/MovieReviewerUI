@@ -14,7 +14,7 @@ export function ReviewCard(props: ReviewCardProps) {
 
    return (<>
     <ListItem key={props.index}>
-        <ListItemText primary={review.movieName} secondary={review.reviewText} />
+        <ListItemText primary={review.movieName} secondary={review.comment} />
         <Rating rating={review.rating} />
         <ListItemSecondaryAction>
             <EditReviewModal review={review}/>

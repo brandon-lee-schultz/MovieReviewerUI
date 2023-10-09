@@ -13,17 +13,17 @@ import {
 
 interface AddReviewModalProps {
   open: boolean;
-  movieTitle: string;
+  movieId: string;
   onClose: () => void;
-  onSave: (movieTitle: string, comment: string, rating: number) => void;
+  onSave: (movieId: string, comment: string, rating: number) => void;
 }
 
-const AddReviewModal: React.FC<AddReviewModalProps> = ({ open, movieTitle, onClose, onSave }) => {
+const AddReviewModal: React.FC<AddReviewModalProps> = ({ open, movieId, onClose, onSave }) => {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
 
   const handleSave = () => {
-    onSave(movieTitle, comment, rating);
+    onSave(movieId, comment, rating);
     onClose();
   };
 

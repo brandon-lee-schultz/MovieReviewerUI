@@ -1,6 +1,10 @@
 export interface Review
 {
+    id: string,
     movieName: string,
-    reviewText: string,
-    rating: number
+    reviewer: string,
+    comment: string
+    rating: number,
+    createdOn: Date,
+    lastModified: Date
 }

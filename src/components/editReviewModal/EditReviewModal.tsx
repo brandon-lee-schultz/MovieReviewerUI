@@ -9,7 +9,7 @@ interface EditReviewModalProps {
 }
 
 export function EditReviewModal(props: EditReviewModalProps) {
-    const [comment, setComment] = useState<string>(props.review.reviewText);
+    const [comment, setComment] = useState<string>(props.review.comment);
     const [rating, setRating] = useState<number>(props.review.rating);
 
     const { editDialogOpen, handleEditDialogClose, handleReviewEdit, handleEdit } = useEditReviewModal();

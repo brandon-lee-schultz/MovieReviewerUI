@@ -21,6 +21,7 @@ export function Movies() {
         {paginatedMovies.map((movie, index) => (
            <Movie
            key={index}
+           id={movie.id}
            title={movie.title}
            image={movie.coverImage}
            year={movie.releaseYear} 

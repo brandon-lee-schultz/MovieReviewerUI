@@ -3,6 +3,7 @@ import { useState } from "react";
 import AddReviewModal from "../addReview/AddReviewModal";
 
 interface MovieProps {
+    id: string,
     title: string,
     image: string,
     year: number,
@@ -20,9 +21,19 @@ export function Movie(props: MovieProps) {
     setIsModalOpen(false);
   };
 
-  const saveReview = (movieTitle: string, comment: string, rating: number) => {
-    // Handle saving the review data here
-    console.log(`MovieTitle: ${movieTitle}, Comment: ${comment}, Rating: ${rating}`);
+  const saveReview = (movieId: string, comment: string, rating: number) => {
+    const postData = 
+    {
+      movieId,
+      userId: "DAA9B698-3DC1-4FFC-B7A5-963C69CE1AC2",
+      comment,
+      rating
+    };
+
+      const apiUrl = "https://localhost:7175/Review";
+      fetch(apiUrl,{method: 'POST', headers: {
+        'Content-Type': 'application/json', 
+      }, body: JSON.stringify(postData)})
   };
 
     return (
@@ -48,7 +59,7 @@ export function Movie(props: MovieProps) {
           >
             Add Review
           </Button>
-            <AddReviewModal movieTitle={props.title} open={isModalOpen} onClose={closeModal} onSave={saveReview} />
+            <AddReviewModal movieId={props.id} open={isModalOpen} onClose={closeModal} onSave={saveReview} />
         </CardContent>
       </Card>
       </Grid>)
