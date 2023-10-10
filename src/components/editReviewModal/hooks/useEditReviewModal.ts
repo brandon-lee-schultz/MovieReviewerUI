@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { EditReviewModalProps } from "../EditReviewModal";
+import { Review } from "types/Review";
 
 interface UseEditReviewModal {
     editDialogOpen: boolean,
@@ -6,7 +8,7 @@ interface UseEditReviewModal {
     handleReviewEdit: () => void,
     handleEdit: () => void
 }
-export function useEditReviewModal(): UseEditReviewModal {
+export function useEditReviewModal(props: Review): UseEditReviewModal {
     const [editDialogOpen, setEditDialogOpen] = useState(false);
 
     const handleEditDialogClose = () => {
@@ -14,6 +16,11 @@ export function useEditReviewModal(): UseEditReviewModal {
     };
 
     const handleReviewEdit = () => {
+        const apiUrl = "https://localhost:7175/Review";
+        fetch(apiUrl,{method: 'PUT', headers: {
+          'Content-Type': 'application/json', 
+        }, body: JSON.stringify(props)})
+
         handleEditDialogClose();
     };
     

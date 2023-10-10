@@ -1,12 +1,17 @@
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDeleteReviewModal } from "./hooks/useDeleteReviewModal";
+import { UUID } from "crypto";
 
-export function DeleteReviewModal() {
+interface DeletReviewModalProps {
+    id: string
+}
+
+export function DeleteReviewModal(props: DeletReviewModalProps) {
     const { deleteDialogOpen, 
         handleDeleteDialogClose, 
         handleReviewDelete, 
-        handleDelete } = useDeleteReviewModal();
+        handleDelete } = useDeleteReviewModal(props.id);
 
     return (<>
     <IconButton onClick={() => handleDelete()}>

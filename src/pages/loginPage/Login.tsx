@@ -22,7 +22,6 @@ export function Login() {
   const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = () => {
-    // Simple validation
     if (!username) {
       setUsernameError('Username is required');
     } else {
@@ -96,11 +95,6 @@ export function Login() {
         <Typography align="center" style={{ marginTop: '10px' }}>
           <Link component={RouterLink} to="/register" color="secondary">
             Register
-          </Link>
-        </Typography>
-        <Typography align="center" style={{ marginTop: '10px' }}>
-          <Link href="#" color="secondary">
-            Forgot Password?
           </Link>
         </Typography>
       </Paper>

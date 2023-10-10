@@ -9,6 +9,7 @@ import {
   Slider,
   Button,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 
 interface AddReviewModalProps {
@@ -21,6 +22,8 @@ interface AddReviewModalProps {
 const AddReviewModal: React.FC<AddReviewModalProps> = ({ open, movieId, onClose, onSave }) => {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
+
+  const [commentError, setCommentError] = useState<string>('');
 
   const handleSave = () => {
     onSave(movieId, comment, rating);
@@ -36,8 +39,20 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({ open, movieId, onClose,
           fullWidth
           variant="outlined"
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 100)
+            {
+              setComment(e.target.value);
+              setCommentError('');
+              return;
+            }
+            else
+            {
+              setCommentError("You have reached the character limit!")
+            }
+          }}
         />
+        {commentError && (  <FormHelperText error>{commentError}</FormHelperText>)}
         <Typography gutterBottom>Rating:</Typography>
         <Slider
           value={rating}

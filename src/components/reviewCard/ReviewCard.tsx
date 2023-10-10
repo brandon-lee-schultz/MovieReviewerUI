@@ -10,15 +10,14 @@ interface ReviewCardProps {
 }
 
 export function ReviewCard(props: ReviewCardProps) {
-    const {review} = props;
-
    return (<>
     <ListItem key={props.index}>
-        <ListItemText primary={review.movieName} secondary={review.comment} />
-        <Rating rating={review.rating} />
+        <ListItemText primary={props.review.movieName} secondary={props.review.comment} />
+        <span>Created By: {props.review.reviewer}</span>
+        <Rating rating={props.review.rating} />
         <ListItemSecondaryAction>
-            <EditReviewModal review={review}/>
-            <DeleteReviewModal />
+            <EditReviewModal review={props.review}/>
+            <DeleteReviewModal id={props.review.id}/>
         </ListItemSecondaryAction>
     </ListItem></>)
 }

@@ -31,7 +31,7 @@ export function Reviews() {
       />
       <List>
         {filteredReviews.map((review, index) => (
-         <ReviewCard key={index} index={index} review={review} />
+          <ReviewCard key={index} index={index} review={review} />
         ))}
       </List>
     </Container>

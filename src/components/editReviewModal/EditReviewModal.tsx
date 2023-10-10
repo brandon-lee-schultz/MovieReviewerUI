@@ -1,19 +1,36 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Typography, Slider, TextField } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Typography, Slider, TextField, FormHelperText } from "@mui/material";
 import { useEditReviewModal } from "./hooks/useEditReviewModal";
 import EditIcon from '@mui/icons-material/Edit';
 import { Review } from "types/Review";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-interface EditReviewModalProps {
+export interface EditReviewModalProps {
     review: Review
 }
 
 export function EditReviewModal(props: EditReviewModalProps) {
-    const [comment, setComment] = useState<string>(props.review.comment);
-    const [rating, setRating] = useState<number>(props.review.rating);
+    const [review, setReview] = useState<Review>(props.review);
+    const [commentError, setCommentError] = useState<string>('');
 
-    const { editDialogOpen, handleEditDialogClose, handleReviewEdit, handleEdit } = useEditReviewModal();
+    const { editDialogOpen, handleEditDialogClose, handleReviewEdit, handleEdit } = useEditReviewModal(review);
 
+    const handleChanges = (comment: string | undefined, rating: number | undefined) => {
+        if (rating !== undefined)
+        {
+            setReview({...props.review, rating: rating as number})
+        }
+        if (comment !== undefined)
+        {
+            if (comment.length <= 100)
+            {
+                setReview({...props.review, comment: comment});
+                setCommentError('');
+                return;
+            }
+            setCommentError("You have reached the character limit!");
+        }
+    }
+    
     return (<>
     <IconButton onClick={() => handleEdit()}>
         <EditIcon />
@@ -27,19 +44,20 @@ export function EditReviewModal(props: EditReviewModalProps) {
           label="Comment"
           fullWidth
           variant="outlined"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}/>
+          value={review.comment}
+          onChange={(e) => handleChanges(e.target.value, undefined)}/>
+          {commentError && (<FormHelperText error>{commentError}</FormHelperText>)}
         <Typography 
           style={{marginTop: "2%"}}
           gutterBottom>Rating:</Typography>
         <Slider
-          value={rating}
+          value={review.rating}
           min={0}
           max={5}
           step={0.1}
-          onChange={(_, value) => setRating(value as number)}
+          onChange={(_, value) => handleChanges(undefined, value as number)}
         />
-        <Typography variant="body2">{rating.toFixed(1)}</Typography>
+        <Typography variant="body2">{review.rating.toFixed(1)}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleEditDialogClose} color="primary">

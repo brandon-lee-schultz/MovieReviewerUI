@@ -5,24 +5,24 @@ export function useReviews() {
     const [reviews, setReviews] = useState<Review[]>([]);
 
     useMemo(() => {
-        const apiUrl = "https://localhost:7175/Review";
+            const apiUrl = "https://localhost:7175/Review";
 
-        fetch(apiUrl)
-        .then((response) => {
-            if (!response.ok)
-            {
-                throw new Error('An error occured trying to retrieve movies.')
-            }
+            fetch(apiUrl)
+            .then((response) => {
+                if (!response.ok)
+                {
+                    throw new Error('An error occured trying to retrieve movies.')
+                }
 
-            return response.json();
-        })
-        .then((data) => {
-            setReviews(data);
-            setFilteredReviews(data);
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+                return response.json();
+            })
+            .then((data) => {
+                setReviews(data);
+                setFilteredReviews(data);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }, []);
 
     const [searchText, setSearchText] = useState('');
@@ -39,6 +39,6 @@ export function useReviews() {
         handleSearch,
         filteredReviews,
         searchText,
-        setSearchText,
+        setSearchText
     }
 }

@@ -1,5 +1,5 @@
+import { UUID } from "crypto";
 import { useState } from "react";
-import { Review } from "types/Review";
 
 interface UseDeleteReviewModal {
     deleteDialogOpen: boolean,
@@ -8,7 +8,7 @@ interface UseDeleteReviewModal {
     handleDelete: () => void
 }
 
-export function useDeleteReviewModal() {
+export function useDeleteReviewModal(props: string): UseDeleteReviewModal {
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     
     const handleDeleteDialogClose = () => {
@@ -16,6 +16,13 @@ export function useDeleteReviewModal() {
       };
 
       const handleReviewDelete = () => {
+        const deleteData = {id: props};
+
+        const apiUrl = "https://localhost:7175/Review";
+        fetch(apiUrl,{method: 'DELETE', headers: {
+          'Content-Type': 'application/json', 
+        }, body: JSON.stringify(deleteData)})
+     
         handleDeleteDialogClose();
       };
 
