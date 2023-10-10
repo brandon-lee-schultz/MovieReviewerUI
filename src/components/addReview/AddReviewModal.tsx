@@ -52,7 +52,7 @@ const AddReviewModal: React.FC<AddReviewModalProps> = ({ open, movieId, onClose,
             }
           }}
         />
-        {commentError && (  <FormHelperText error>{commentError}</FormHelperText>)}
+        {commentError && (<FormHelperText error>{commentError}</FormHelperText>)}
         <Typography gutterBottom>Rating:</Typography>
         <Slider
           value={rating}

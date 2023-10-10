@@ -1,12 +1,11 @@
-import { UUID } from "crypto"
-
-export interface Review
+export type Review =
 {
     id: string,
     movieName: string,
+    userId?: string,
     reviewer: string,
     comment: string
     rating: number,
-    createdOn: Date,
-    lastModified: Date
+    createdOn: string,
+    lastModified: string
 }

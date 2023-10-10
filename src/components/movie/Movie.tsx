@@ -1,6 +1,8 @@
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import AddReviewModal from "../addReview/AddReviewModal";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { saveReviews } from "store/features/reviewSlice";
 
 interface MovieProps {
     id: string,
@@ -13,6 +15,8 @@ interface MovieProps {
 export function Movie(props: MovieProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
+  const dispatch = useAppDispatch();
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -22,18 +26,9 @@ export function Movie(props: MovieProps) {
   };
 
   const saveReview = (movieId: string, comment: string, rating: number) => {
-    const postData = 
-    {
-      movieId,
-      userId: "DAA9B698-3DC1-4FFC-B7A5-963C69CE1AC2",
-      comment,
-      rating
-    };
+    const userId = sessionStorage.getItem("userId") as string;
 
-      const apiUrl = "https://localhost:7175/Review";
-      fetch(apiUrl,{method: 'POST', headers: {
-        'Content-Type': 'application/json', 
-      }, body: JSON.stringify(postData)})
+    dispatch(saveReviews({comment, rating, movieId, userId}))
   };
 
     return (

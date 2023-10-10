@@ -2,7 +2,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, 
 import { useEditReviewModal } from "./hooks/useEditReviewModal";
 import EditIcon from '@mui/icons-material/Edit';
 import { Review } from "types/Review";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 export interface EditReviewModalProps {
     review: Review
@@ -15,11 +15,11 @@ export function EditReviewModal(props: EditReviewModalProps) {
     const { editDialogOpen, handleEditDialogClose, handleReviewEdit, handleEdit } = useEditReviewModal(review);
 
     const handleChanges = (comment: string | undefined, rating: number | undefined) => {
-        if (rating !== undefined)
+        if (rating !== undefined && rating !== review.rating)
         {
             setReview({...props.review, rating: rating as number})
         }
-        if (comment !== undefined)
+        if (comment !== undefined && comment !== review.comment)
         {
             if (comment.length <= 100)
             {

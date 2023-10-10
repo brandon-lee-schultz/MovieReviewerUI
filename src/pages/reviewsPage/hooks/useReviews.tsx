@@ -1,43 +1,35 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchReviews } from "store/features/reviewSlice";
+import { useAppDispatch, useAppSelector } from "store/store";
 import { Review } from "types/Review";
 
 export function useReviews() {
-    const [reviews, setReviews] = useState<Review[]>([]);
+    const reviews = useAppSelector(state => state.reviewSlice.reviews);
+    const dispatch = useAppDispatch();
 
-    useMemo(() => {
-            const apiUrl = "https://localhost:7175/Review";
-
-            fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok)
-                {
-                    throw new Error('An error occured trying to retrieve movies.')
-                }
-
-                return response.json();
-            })
-            .then((data) => {
-                setReviews(data);
-                setFilteredReviews(data);
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    useEffect(() => {
+        dispatch(fetchReviews());
     }, []);
 
     const [searchText, setSearchText] = useState('');
-    const [filteredReviews, setFilteredReviews] = useState<Review[]>(reviews);
+    const [filteredReviews, setFilteredReviews] = useState<Review[]>([]);
 
     const handleSearch = () => {
         const filtered = reviews.filter((review: Review) =>
-        review.movieName.toLowerCase().includes(searchText.toLowerCase())
+            review.movieName.toLowerCase().includes(searchText.toLowerCase())
         );
+
+        if (filtered == null) {
+            setFilteredReviews([]);
+            return;
+        }
+
         setFilteredReviews(filtered);
     };
 
     return {
         handleSearch,
-        filteredReviews,
+        filteredReviews: filteredReviews.length <= 0 ? reviews : filteredReviews,
         searchText,
         setSearchText
     }

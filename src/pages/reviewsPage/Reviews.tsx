@@ -4,14 +4,14 @@ import {
   List,
   Typography,
 } from '@mui/material';
-
 import { useReviews } from './hooks/useReviews';
 import { ReviewCard } from '../../components/reviewCard/ReviewCard';
 
 export function Reviews() {
+  
   const {
-    handleSearch,
     filteredReviews,
+    handleSearch,
     searchText,
     setSearchText} = useReviews();
 
@@ -20,7 +20,11 @@ export function Reviews() {
       <Typography variant="h4" align="center" gutterBottom>
         Reviews
       </Typography>
-      <TextField
+      {filteredReviews.length <= 0 && (
+          <h1>There are currently no reviews to display!</h1>
+        ) }
+      {filteredReviews && (
+        <TextField
         label="Search Movie by Name"
         variant="outlined"
         fullWidth
@@ -29,11 +33,13 @@ export function Reviews() {
         onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         margin="normal"
       />
-      <List>
+      ) && (
+        <List>
         {filteredReviews.map((review, index) => (
           <ReviewCard key={index} index={index} review={review} />
         ))}
       </List>
+      )}
     </Container>
   );
 };

@@ -11,6 +11,8 @@ import { AuthGuard } from './components/authGuard/AuthGuard';
 import { Register } from './pages/registerPage/Register';
 import { NavigationRoutes } from 'types/NavigationRoutes';
 import { Logout } from 'pages/logout/Logout';
+import { Store } from 'store/store';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,6 +22,7 @@ document.title = 'Movie Reviewer';
 
 root.render(
   <React.StrictMode>
+    <Provider store={Store}>
     <Router>
         <AuthGuard protectedRoutes={[NavigationRoutes.Movies, NavigationRoutes.Reviews]}>
            <Routes>
@@ -32,6 +35,7 @@ root.render(
            </Routes>
         </AuthGuard>
     </Router>
+    </Provider>
   </React.StrictMode>
 );
 

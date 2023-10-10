@@ -8,48 +8,14 @@ import {
   Link,
   FormHelperText,
 } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { login } from 'hooks/useAuthentication';
-import { InvalidUsernameOrPassword } from 'constants/ErrorMessages';
-import { NavigationRoutes } from 'types/NavigationRoutes';
+import { Link as RouterLink } from 'react-router-dom';
+import { useLogin } from './hooks/useLogin';
 
 export function Login() {
-  const navigate = useNavigate();
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
 
-  const handleLogin = () => {
-    if (!username) {
-      setUsernameError('Username is required');
-    } else {
-      setUsernameError('');
-    }
-
-    if (!password) {
-      setPasswordError('Password is required');
-    } else {
-      setPasswordError('');
-    }
-
-    if (username && password) {
-  
-      const { authenticated } = login(username, password)
-
-      if (!authenticated)
-      {
-        setUsernameError(InvalidUsernameOrPassword);
-        setPasswordError(InvalidUsernameOrPassword);
-      }
-      else
-      {
-        navigate(NavigationRoutes.Movies);
-      }
-     
-    }
-  };
+  const {usernameError, passwordError, handleLogin} = useLogin({username, password});
 
   return (
     <Container maxWidth="sm">

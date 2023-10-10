@@ -10,14 +10,20 @@ interface ReviewCardProps {
 }
 
 export function ReviewCard(props: ReviewCardProps) {
+    const userId = sessionStorage.getItem("userId");
+
    return (<>
     <ListItem key={props.index}>
         <ListItemText primary={props.review.movieName} secondary={props.review.comment} />
         <span>Created By: {props.review.reviewer}</span>
         <Rating rating={props.review.rating} />
         <ListItemSecondaryAction>
-            <EditReviewModal review={props.review}/>
-            <DeleteReviewModal id={props.review.id}/>
+            {userId === props.review.userId && (
+                <>
+                <EditReviewModal review={props.review}/>
+                <DeleteReviewModal id={props.review.id}/>
+                </>
+            )}
         </ListItemSecondaryAction>
     </ListItem></>)
 }

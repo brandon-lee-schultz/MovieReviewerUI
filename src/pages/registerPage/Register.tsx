@@ -7,8 +7,12 @@ import {
   Grid,
   Link,
 } from '@mui/material';
+import { useNavigate } from 'react-router';
+import { NavigationRoutes } from 'types/NavigationRoutes';
 
 export function Register() {
+  const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
       firstName: '',
       lastName: '',
@@ -23,7 +27,16 @@ export function Register() {
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      // Implement registration logic here
+
+      fetch("https://localhost:7175/User", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username: formData.firstName, password: formData.password})
+      }).then(() => {
+        navigate(NavigationRoutes.Login);
+      })
     };
   
     return (

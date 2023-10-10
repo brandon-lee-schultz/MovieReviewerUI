@@ -1,11 +1,8 @@
-import { logout } from "hooks/useAuthentication";
-import { useEffect } from "react";
+import { useLogoutAuthenticate } from "hooks/useAuthentication";
 import './logout.css';
 
 export function Logout() {
-    useEffect(() => {
-        logout();
-    }, []);
+    useLogoutAuthenticate();
 
     return (<></>)
 }

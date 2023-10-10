@@ -1,23 +1,37 @@
+import { useState } from "react";
+
 interface UseAuthentication {
     authenticated: boolean;
 }
 
-export function login(username: string, password: string): UseAuthentication {
-    if (username === "admin" && password === "123")
-        {
-            sessionStorage.setItem("isAuthenticated", "true");
+export function useLoginAuthenticate(username: string, password: string): UseAuthentication {
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-            return {
-                authenticated: true
-            };
+    if (username === "" || password === "") 
+    {
+        return {
+            authenticated: isAuthenticated
+        } 
+    }
+
+    fetch(`https://localhost:7175/User?username=${username}&password=${password}`)
+    .then((response) => response.json())
+    .then((data) => {
+        if (username === data.username && password === data.password)
+        {
+            sessionStorage.setItem("userId", data.id);
+            setIsAuthenticated(true);
         }
-   
+    }).finally(() => {
+        sessionStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+    });
+    
     return {
-        authenticated: false
+        authenticated: isAuthenticated
     }
 }
 
-export function logout(): UseAuthentication {
+export function useLogoutAuthenticate(): UseAuthentication {
     sessionStorage.removeItem("isAuthenticated");
 
     return {
