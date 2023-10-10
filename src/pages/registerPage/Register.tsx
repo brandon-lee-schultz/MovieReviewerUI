@@ -14,9 +14,7 @@ export function Register() {
   const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-      firstName: '',
-      lastName: '',
-      email: '',
+      username: '',
       password: '',
     });
   
@@ -33,7 +31,7 @@ export function Register() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({username: formData.firstName, password: formData.password})
+        body: JSON.stringify({username: formData.username, password: formData.password})
       }).then(() => {
         navigate(NavigationRoutes.Login);
       })
@@ -47,34 +45,12 @@ export function Register() {
           </Typography>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="First Name"
                   name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  value={formData.email}
+                  value={formData.username}
                   onChange={handleChange}
                   variant="outlined"
                   required
@@ -94,6 +70,7 @@ export function Register() {
               </Grid>
             </Grid>
             <Button
+              style={{marginTop: "2%"}}
               type="submit"
               variant="contained"
               color="primary"

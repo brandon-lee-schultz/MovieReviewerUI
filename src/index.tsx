@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -14,33 +15,37 @@ import { Logout } from 'pages/logout/Logout';
 import { Store } from 'store/store';
 import { Provider } from 'react-redux';
 
+// Create a root for rendering React components
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+// Set the document title
 document.title = 'Movie Reviewer';
 
+// Render the React component tree inside the root
 root.render(
   <React.StrictMode>
+    {/* Provide the Redux store to the entire application */}
     <Provider store={Store}>
-    <Router>
-        <AuthGuard protectedRoutes={[NavigationRoutes.Movies, NavigationRoutes.Reviews]}>
-           <Routes>
-            <Route path="/" element={<NavbarWrapper children={<Login />}/>} />
-            <Route path="/movies" element={<NavbarWrapper children={<Movies />}/>} />
+      {/* Set up routing with React Router */}
+      <Router>
+        {/* Use an authentication guard for protected routes */}
+        <AuthGuard protectedRoutes={[NavigationRoutes.Movies, NavigationRoutes.Reviews, NavigationRoutes.Logout]}>
+          {/* Define the routes */}
+          <Routes>
+            <Route path="/" element={<NavbarWrapper children={<Login />} />} />
+            <Route path="/movies" element={<NavbarWrapper children={<Movies />} />} />
             <Route path="/reviews" element={<NavbarWrapper children={<Reviews />} />} />
-            <Route path="/login" Component={Login}/>
-            <Route path="/register" Component={Register}/>
+            <Route path="/login" Component={Login} />
+            <Route path="/register" Component={Register} />
             <Route path="/logout" Component={Logout} />
-           </Routes>
+          </Routes>
         </AuthGuard>
-    </Router>
+      </Router>
     </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Measure and report web vitals
 reportWebVitals();
- 

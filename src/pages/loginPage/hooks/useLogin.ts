@@ -17,6 +17,7 @@ interface useLoginProps {
 
 export function useLogin(props: useLoginProps): UseLogin {
     const navigate = useNavigate();
+
     const { authenticated } = useLoginAuthenticate(props.username, props.password);
 
     const [usernameError, setUsernameError] = useState('');
@@ -36,7 +37,8 @@ export function useLogin(props: useLoginProps): UseLogin {
     }
 
     if (props.username && props.password) {
-      if (!authenticated)
+  
+      if (!authenticated) 
       {
         setUsernameError(InvalidUsernameOrPassword);
         setPasswordError(InvalidUsernameOrPassword);

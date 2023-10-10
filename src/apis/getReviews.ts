@@ -1,23 +1,26 @@
+// Import necessary modules and components
+import { apiUrl } from "config";
 import { Review } from "types/Review";
 
-export function getReviews(): Review[] {
-    const apiUrl = "https://localhost:7175/Review";
-
-    fetch(apiUrl)
+// Function to retrieve reviews
+export function getReviews(): Promise<Review[]> {
+  // Make a fetch request to the reviews API endpoint
+  return fetch(`${apiUrl}/Review`)
     .then((response) => {
-        if (!response.ok)
-        {
-            throw new Error('An error occured trying to retrieve movies.')
-        }
+      // Check if the response is not OK (i.e., there was an error)
+      if (!response.ok) {
+        // Throw an error with a custom message
+        throw new Error('An error occurred while trying to retrieve reviews.');
+      }
 
-        return response.json();
-    })
-    .then((data) => {
-        return data as Review[];
+      // Parse the response body as JSON and return it as an array of Review objects
+      return response.json() as Promise<Review[]>;
     })
     .catch((err) => {
-        console.log(err)
-    })
+      // Log any errors that occur during the fetch request
+      console.log(err);
 
-    return [];
+      // Return an empty array in case of an error
+      return [];
+    });
 }
