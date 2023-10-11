@@ -1,6 +1,7 @@
 import { InvalidUsernameOrPassword } from "../../../constants/ErrorMessages";
 import { useLoginAuthenticate } from "../../../hooks/useAuthentication";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavigationRoutes } from "../../../types/NavigationRoutes";
 
 interface UseLogin {
@@ -15,7 +16,7 @@ interface useLoginProps {
 }
 
 export function useLogin(props: useLoginProps): UseLogin {
-    const navigate = useHistory();
+    const navigate = useNavigate();
 
     const { authenticated } = useLoginAuthenticate(props.username, props.password);
 
