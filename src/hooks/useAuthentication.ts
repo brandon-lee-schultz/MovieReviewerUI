@@ -1,7 +1,7 @@
 // Import necessary modules and components
-import { apiUrl } from "config"; // Import the API base URL from the configuration
+import { apiUrl } from "../config"; // Import the API base URL from the configuration
 import { useState } from "react"; // Import the useState hook from React
-import { ControllerTypes } from "types/ControllerTypes"; // Import types for controllers
+import { ControllerTypes } from "../types/ControllerTypes"; // Import types for controllers
 
 // Define an interface for the return value of useLoginAuthenticate and useLogoutAuthenticate
 interface UseAuthentication {

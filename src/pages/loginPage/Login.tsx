@@ -13,7 +13,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useLogin } from './hooks/useLogin';
 
 // Define a functional React component called Login
-export function Login(): JSX.Element {
+export function Login() {
   // Initialize state variables for username and password
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
