@@ -1,33 +1,38 @@
+// Import necessary components and libraries
+import React from 'react';
 import {
   Container,
   Grid,
   Typography,
-} from '@mui/material';
-import ReactPaginate from 'react-paginate';
-import './movies.css';
-import { Movie } from '../../components/movie/Movie';
-import { useMovies } from './hooks/useMovies';
+} from '@mui/material'; // Material-UI components
+import ReactPaginate from 'react-paginate'; // Pagination component
+import './movies.css'; // Custom CSS styles
+import { Movie } from '../../components/movie/Movie'; // Movie component
+import { useMovies } from './hooks/useMovies'; // Custom hook for handling movies
 
-export function Movies() {
-  
+// Define the Movies component
+export function Movies(): JSX.Element {
+  // Use the `useMovies` custom hook to get movie data and pagination logic
   const { paginatedMovies, moviesPerPage, handlePageChange, moviesCount } = useMovies();
 
   return (
-    <Container style={{marginTop: "2%"}}>
+    <Container style={{ marginTop: "2%" }}>
       <Typography variant="h4" align="center" gutterBottom>
         Movies
       </Typography>
       <Grid container spacing={2}>
         {paginatedMovies.map((movie, index) => (
-           <Movie
-           key={index}
-           id={movie.id}
-           title={movie.title}
-           image={movie.coverImage}
-           year={movie.releaseYear} 
-           index={index}/>
+          <Movie
+            key={index}
+            id={movie.id}
+            title={movie.title}
+            image={movie.coverImage}
+            year={movie.releaseYear}
+            index={index}
+          />
         ))}
       </Grid>
+      {/* Pagination component to navigate through movie pages */}
       <ReactPaginate
         previousLabel={'Previous'}
         nextLabel={'Next'}
@@ -39,4 +44,4 @@ export function Movies() {
       />
     </Container>
   );
-};
+}

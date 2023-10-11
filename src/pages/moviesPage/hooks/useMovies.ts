@@ -1,52 +1,71 @@
-import { useMemo, useState } from "react";
-import { Movie } from "types/Movie";
+// Import necessary dependencies and configurations
+import { apiUrl } from "config"; // Import the API base URL from the configuration
+import { useEffect, useState } from "react"; // Import React hooks
+import { ControllerTypes } from "types/ControllerTypes"; // Import controller types
+import { Movie } from "types/Movie"; // Import the Movie type
 
+// Define the structure of the data returned by the hook
 interface UseMovies {
-    paginatedMovies: Movie[], 
-    moviesPerPage: number, 
-    handlePageChange: (selectedPage: { selected: number }) => void, 
-    moviesCount: number 
+    paginatedMovies: Movie[], // An array of movies for the current page
+    moviesPerPage: number, // Number of movies to display per page
+    handlePageChange: (selectedPage: { selected: number }) => void, // Function to handle page changes
+    moviesCount: number // Total number of movies
 }
 
+// Define a constant for the number of movies to display per page
+const MOVIES_PER_PAGE = 6;
+
+// Create and export the custom hook for managing movies
 export function useMovies(): UseMovies {
-    const moviesPerPage = 6;
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [currentPage, setCurrentPage] = useState(0);
+  // State variables for managing movies and the current page
+  const [movies, setMovies] = useState<Movie[]>([]); // Movies data
+  const [currentPage, setCurrentPage] = useState(0); // Current page
 
-    useMemo(() => {
-        const apiUrl = "https://localhost:7175/Movie";
+  // Fetch movies data from the API when the component mounts or updates
+  useEffect(() => {
+    // Define an asynchronous function for fetching movies
+    const fetchMovies = async () => {
+      try {
+        // Send a request to the API to retrieve movies
+        const response = await fetch(`${apiUrl}${ControllerTypes.Movie}`);
 
-        fetch(apiUrl)
-        .then((response) => {
-            if (!response.ok)
-            {
-                throw new Error('An error occured trying to retrieve movies.')
-            }
+        // Check if the response is successful (status code 200)
+        if (!response.ok) {
+          throw new Error("An error occurred while trying to retrieve movies.");
+        }
 
-            return response.json();
-        })
-        .then((data) => {
-            setMovies(data);
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }, []);
-
-
-    const handlePageChange = (selectedPage: { selected: number }) => {
-        setCurrentPage(selectedPage.selected);
+        // Parse the response data as JSON and set it in the state
+        const data = await response.json();
+        setMovies(data);
+      } catch (error) {
+        // Handle any errors that occur during the fetch process
+        console.log(error);
+      }
     };
 
-    const offset = currentPage * moviesPerPage;
-    const paginatedMovies = movies.slice(offset, offset + moviesPerPage);
+    // Call the fetchMovies function when the component mounts or updates
+    fetchMovies();
+  }, []); // The empty dependency array ensures this effect runs once on mount
 
-    const moviesCount = movies.length;
+  // Define a function for handling page changes
+  const handlePageChange = (selectedPage: { selected: number }) => {
+    setCurrentPage(selectedPage.selected);
+  };
 
-    return {
-        paginatedMovies, 
-        moviesPerPage, 
-        handlePageChange,
-        moviesCount
-    }
+  // Calculate the starting index for the current page
+  const offset = currentPage * MOVIES_PER_PAGE;
+
+  // Create an array of movies to display on the current page
+  const paginatedMovies = movies.slice(offset, offset + MOVIES_PER_PAGE);
+
+  // Get the total number of movies in the dataset
+  const moviesCount = movies.length;
+
+  // Return the data required by the component using this hook
+  return {
+    paginatedMovies,
+    moviesPerPage: MOVIES_PER_PAGE,
+    handlePageChange,
+    moviesCount,
+  };
 }

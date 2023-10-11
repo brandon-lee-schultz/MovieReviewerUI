@@ -1,7 +1,7 @@
 // Import necessary modules and components from Redux Toolkit
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddReview } from "apis/models/addReview";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Review } from "types/Review";
+import { fetchReviews } from "./fetchReviews";
 
 // Define the shape of the review state
 interface ReviewState {
@@ -12,47 +12,6 @@ interface ReviewState {
 const initialState: ReviewState = {
   reviews: [],
 };
-
-// Create an asynchronous thunk for fetching reviews
-export const fetchReviews = createAsyncThunk("reviews/get", async () => {
-  const response = await fetch("https://localhost:7175/Review", {
-    method: 'GET',
-  });
-
-  const data = await response.json();
-
-  return data;
-});
-
-// Create an asynchronous thunk for saving a review
-export const saveReviews = createAsyncThunk("reviews/save", async (review: AddReview) => {
-  const response = await fetch("https://localhost:7175/Review", {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(review),
-  });
-
-  const data = await response.json();
-
-  return data;
-});
-
-// Create an asynchronous thunk for deleting a review
-export const deleteReview = createAsyncThunk("reviews/delete", async (id: string) => {
-  const response = await fetch("https://localhost:7175/Review", {
-    method: 'DELETE',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(id),
-  });
-
-  const data = await response.json();
-
-  return data;
-});
 
 // Create a slice for managing reviews
 export const ReviewSlice = createSlice({

@@ -1,38 +1,25 @@
+// Import necessary components and modules from dependencies and local files
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import { useState } from "react";
-import AddReviewModal from "../addReview/AddReviewModal";
-import { useAppDispatch, useAppSelector } from "store/store";
-import { saveReviews } from "store/features/reviewSlice";
+import { AddReviewModal } from "../addReview/AddReviewModal";
+import { useMovie } from "./hooks/useMovie";
 
+// Define the props interface for the 'Movie' component
 interface MovieProps {
-    id: string,
-    title: string,
-    image: string,
-    year: number,
-    index: number
+  id: string,
+  title: string,
+  image: string,
+  year: number,
+  index: number
 }
 
-export function Movie(props: MovieProps) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+// Define the 'Movie' component function
+export function Movie(props: MovieProps): JSX.Element {
+  // Use the custom hook 'useMovie' to manage the modal state and review functionality
+  const { isModalOpen, openModal, closeModal, saveReview } = useMovie();
 
-  const dispatch = useAppDispatch();
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const saveReview = (movieId: string, comment: string, rating: number) => {
-    const userId = sessionStorage.getItem("userId") as string;
-
-    dispatch(saveReviews({comment, rating, movieId, userId}))
-  };
-
-    return (
-      <Grid item xs={12} sm={6} md={4} key={props.index}>
+  return (
+    // Render the movie card within a Grid item
+    <Grid item xs={12} sm={6} md={4} key={props.index}>
       <Card>
         <CardMedia
           component="img"
@@ -50,12 +37,18 @@ export function Movie(props: MovieProps) {
             variant="contained"
             color="primary"
             fullWidth
-            onClick={openModal}
+            onClick={openModal} // Trigger the modal opening
           >
             Add Review
           </Button>
-            <AddReviewModal movieId={props.id} open={isModalOpen} onClose={closeModal} onSave={saveReview} />
+          <AddReviewModal
+            movieId={props.id}
+            open={isModalOpen} // Pass the modal state
+            onClose={closeModal} // Pass the modal closing function
+            onSave={saveReview} // Pass the function to save a review
+          />
         </CardContent>
       </Card>
-      </Grid>)
+    </Grid>
+  );
 }

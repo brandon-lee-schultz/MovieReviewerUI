@@ -1,3 +1,4 @@
+// Import necessary modules and components from external libraries
 import { useState } from 'react';
 import {
   Container,
@@ -11,12 +12,16 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { useLogin } from './hooks/useLogin';
 
-export function Login() {
+// Define a functional React component called Login
+export function Login(): JSX.Element {
+  // Initialize state variables for username and password
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const {usernameError, passwordError, handleLogin} = useLogin({username, password});
+  // Use the useLogin custom hook to manage user login functionality
+  const { usernameError, passwordError, handleLogin } = useLogin({ username, password });
   
+  // Render the login form and related UI elements
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} style={{ padding: '20px', marginTop: '50px' }}>
